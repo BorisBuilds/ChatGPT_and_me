@@ -15,21 +15,21 @@ from bottle import route, run, template
 import cv2
 import base64
 
-# Pfad zur Webcam (in diesem Beispiel wird die erste Webcam verwendet)
+# Path to the webcam (in this example, we are using the first webcam)
 cap = cv2.VideoCapture(0)
 
 @route('/')
 def index():
-    # Erfasse ein Bild von der Webcam
+    # Capture an image from the webcam
     ret, frame = cap.read()
 
-    # Konvertiere das Bild in das JPEG-Format
+    # Convert the image to JPEG format
     ret, jpeg = cv2.imencode('.jpg', frame)
 
-    # Kodiere das JPEG-Bild in Base64
+    # Encode the JPEG image in Base64
     b64 = base64.b64encode(jpeg.tobytes())
 
-    # Rendere das Template mit dem Base64-kodierten Bild
+    # Render the template with the Base64-encoded image
     return template('''
     <html>
         <head>
